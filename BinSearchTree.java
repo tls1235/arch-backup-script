@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class BST<T extends Comparable<T>> {
+public class BinSearchTree<T extends Comparable<T>> {
 
   private class Node {
     private Node high;
