@@ -15,6 +15,7 @@ public class BST<T extends Comparable<T>> {
 
   private int size = 0;
   private Node root;
+  public List<T> list = new ArrayList<>();
 
   public void add(T value) {
     root = insert(root, value);
@@ -25,6 +26,7 @@ public class BST<T extends Comparable<T>> {
   }
 
   private Node insert(Node node, T value) {
+    list = new ArrayList<T>();
     if (node == null) {
       size++;
       return new Node(value);
@@ -67,6 +69,7 @@ public class BST<T extends Comparable<T>> {
   }
 
   public void remove(T value) {
+    list = new ArrayList<T>();
     root = delete(root, value);
   }
 
@@ -90,17 +93,17 @@ public class BST<T extends Comparable<T>> {
     if (node.low == null) {
       return node.high;
     }
-    Node successor = findMin(node.high);
-    node.value = successor.value;
-    node.high = delete(node.high, successor.value);
+    Node replaceable = findMin(node.high);
+    node.value = replaceable.value;
+    node.high = delete(node.high, replaceable.value);
     size++;
     return node;
   }
 
-  public List<T> inOrder() {
-    List<T> result = new ArrayList<>();
-    inOrder(root, result);
-    return result;
+  public List<T> sort() {
+    list = new ArrayList<T>();
+    inOrder(root, list);
+    return list;
   }
 
   private void inOrder(Node node, List<T> result) {
@@ -112,8 +115,8 @@ public class BST<T extends Comparable<T>> {
   }
 
   public void reBuild() {
-    List<T> orderedList = inOrder();
-    root = reBuild(orderedList);
+    sort();
+    root = reBuild(list);
   }
 
   private Node reBuild(List<T> list) {
